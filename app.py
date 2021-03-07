@@ -13,64 +13,60 @@
 # source.
 
 from flask import Flask, render_template, request
+import threading
+import atexit
 
 from flask_bootstrap import Bootstrap
-import frontend
 
 """
 A example for creating a Table that is sortable by its header
 """
+POOL_TIME = 5 #Seconds
 
-app = Flask(__name__)
-data = [{
-  "name": "bootstrap-table",
-  "commits": "10",
-  "attention": "122",
-  "uneven": "An extended Bootstrap table"
-},
- {
-  "name": "multiple-select",
-  "commits": "288",
-  "attention": "20",
-  "uneven": "A jQuery plugin"
-}, {
-  "name": "Testing",
-  "commits": "340",
-  "attention": "20",
-  "uneven": "For test"
-}]
-# other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
-columns = [
-  {
-    "field": "name", # which is the field's name of data key
-    "title": "name", # display as the table header's name
-    "sortable": True,
-  },
-  {
-    "field": "commits",
-    "title": "commits",
-    "sortable": True,
-  },
-  {
-    "field": "attention",
-    "title": "attention",
-    "sortable": True,
-  },
-  {
-    "field": "uneven",
-    "title": "uneven",
-    "sortable": True,
-  }
-]
+# variables that are accessible from anywhere
+commonDataStruct = {}
+# lock to control access to variable
+dataLock = threading.Lock()
+# thread handler
+yourThread = threading.Thread()
 
-#jdata=json.dumps(data)
+def create_app():
+    app = Flask(__name__)
 
+    def interrupt():
+        global yourThread
+        yourThread.cancel()
+
+    def doStuff():
+        global commonDataStruct
+        global yourThread
+        with dataLock:
+        # Do your stuff with commonDataStruct Here
+            print("test")
+        # Set the next thread to happen
+            yourThread = threading.Timer(POOL_TIME, doStuff, ())
+            yourThread.start()
+
+    def doStuffStart():
+        # Do initialisation stuff here
+        global yourThread
+        # Create your thread
+        yourThread = threading.Timer(POOL_TIME, doStuff, ())
+        yourThread.start()
+
+    # Initiate
+    doStuffStart()
+    # When you kill Flask (SIGTERM), clear the trigger for the next thread
+    atexit.register(interrupt)
+    return app
+
+app = create_app()
+time = 0
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    return render_template("index.html", time)
 
 
 if __name__ == '__main__':
 	#print jdata
   app.run(debug=True)
-  frontend.startFrontEnd()
