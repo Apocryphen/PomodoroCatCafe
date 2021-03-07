@@ -41,7 +41,7 @@ data = [{
 # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
 columns = [
   {
-    "field": "name", # which is the field's name of data key 
+    "field": "name", # which is the field's name of data key
     "title": "name", # display as the table header's name
     "sortable": True,
   },
@@ -64,12 +64,9 @@ columns = [
 
 #jdata=json.dumps(data)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("table.html",
-      data=data,
-      columns=columns,
-      title='Flask Bootstrap Table')
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
