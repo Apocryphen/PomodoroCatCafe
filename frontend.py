@@ -1,6 +1,0 @@
-{% extends "bootstrap/base.html" %}
-
-{%block content%}
-
-{%endblock content%}
-
