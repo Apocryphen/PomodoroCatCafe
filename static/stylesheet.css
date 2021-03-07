@@ -1,6 +1,6 @@
 .timer{
     position: absolute;
-    left: 75%;
+    left: 50%;
     width: 100%;
     z-index: 2;
 }
