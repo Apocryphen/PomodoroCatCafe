@@ -18,10 +18,9 @@ import atexit
 
 from flask_bootstrap import Bootstrap
 
-"""
-A example for creating a Table that is sortable by its header
-"""
-POOL_TIME = 5 #Seconds
+
+POOL_TIME = 1 #Seconds
+ELAPSED_TIME = 0
 
 # variables that are accessible from anywhere
 commonDataStruct = {}
@@ -40,9 +39,11 @@ def create_app():
     def doStuff():
         global commonDataStruct
         global yourThread
+        global ELAPSED_TIME
         with dataLock:
         # Do your stuff with commonDataStruct Here
-            print("test")
+            print("Current time = " + str(ELAPSED_TIME))
+            ELAPSED_TIME += 1
         # Set the next thread to happen
             yourThread = threading.Timer(POOL_TIME, doStuff, ())
             yourThread.start()
@@ -55,16 +56,15 @@ def create_app():
         yourThread.start()
 
     # Initiate
-    doStuffStart()
+    #doStuffStart()
     # When you kill Flask (SIGTERM), clear the trigger for the next thread
     atexit.register(interrupt)
     return app
-
 app = create_app()
-time = 0
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html", time)
+    return render_template("index.html", name=ELAPSED_TIME)
 
 
 if __name__ == '__main__':
