@@ -15,6 +15,7 @@
 from flask import Flask, render_template, request
 
 from flask_bootstrap import Bootstrap
+import frontend
 
 """
 A example for creating a Table that is sortable by its header
@@ -72,3 +73,4 @@ def index():
 if __name__ == '__main__':
 	#print jdata
   app.run(debug=True)
+  frontend.startFrontEnd()
