@@ -1,6 +1,8 @@
-  
-flask-appconfig>=0.10
+
+flask-0.12.5
+flask-appconfig>=0.11.1
 flask-bootstrap
-flask-nav
-flask-debug
-flask-wtf
+gunicorn-20.0.4
+pip-21.0.1
+Werkzeug<1.0
+Jinja2>=2.4
