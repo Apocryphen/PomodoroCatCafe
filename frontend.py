@@ -2,8 +2,6 @@ import time
 import threading
 
 exitFlag = 0
-currentTime = 0
-currentTime = time.perf_counter();
 elapsedTime = 1
 
 class threadElement (threading.Thread):
