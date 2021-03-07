@@ -19,6 +19,7 @@
 
 <body>
     <div class="container-fluid">
+
         <div class="row">
             <div class="text-light">
                 Pomodoro Kitty Cafe
@@ -38,9 +39,6 @@
 
                 </div>
                 <div class="collapse" id="collapseCatStream" aria-expanded="true">
-
-                    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=12345" frameborder="0" allowfullscreen></iframe> -->
-                    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/uEeI6Y-SCfQ?controls=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay=1; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                     <div class="video-player-wrap">
                         <!-- react-empty: 6819 -->
                         <div class="video-player-screen embed-responsive embed-responsive-16by9"><span class="refresh fadeIn" data-tip="true" data-for="refresh" currentitem="false">
@@ -59,6 +57,10 @@
 
             <div class="col-sm-6">
                 <img src="static/Artwork/BackgroundSVG.svg" class="img-fluid rounded float-right d-inline" alt="Responsive image">
+                <div class="float-left">
+                  <h1 id="test" class="timer">0</h1>
+
+                </div>
                 <!-- Optional JavaScript -->
                 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -72,7 +74,8 @@
             </div>
         </div>
     </div>
-    <div class="page">
+    
+    <div class="float-left">
       <div class="bg">
         <h1 id="test" class="timer">0</h1>
         <img src="static/Artwork/BackgroundSVG.svg" class="imageClass" alt="Responsive image" >
@@ -101,7 +104,7 @@
 
       if(isWorking) document.getElementById("test").innerHTML = intToClock(workingTime-elapsedTime);
       else          document.getElementById("test").innerHTML = intToClock(breakTime-elapsedTime);
-     
+    
       }
       function intToClock(timeInt){
         return `${(parseInt(timeInt/60)<10 ? "0":"") + (parseInt(timeInt/60))}:${((timeInt%60)<10 ? "0":"") + (timeInt%60)}`;
@@ -121,11 +124,5 @@
         return "";
       }
     </script>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   
 </body>
